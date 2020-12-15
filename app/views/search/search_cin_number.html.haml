@@ -1,0 +1,45 @@
+- if user_signed_in?
+  = form_for '', url: search_search_cin_number_path do |f|   
+    .level-item
+      .field.has-addons
+        %p.control
+          = f.text_field :cin_number, :id =>"item", :placeholder =>"Enter valid CIN Number", class: 'input is-primary',required: 'true'
+        %p.control
+          %button.button.is-primary.is-outlined{type: 'submit'}
+            %h3 KnowMyCIN
+
+.section.container
+  -if @cin_data_hash.blank?
+    .level-item
+      %img{:alt => "SAMPLE ABBRIVATION OF CIN", :src => "https://www.indiafilings.com/learn/wp-content/uploads/2016/02/Decoding-CIN-Number-1.jpg", :style => "width: 587px; height: 233.039px;"}
+  -if @cin_data_hash.present? && @cin_data_hash[:error]
+    .notification.is-danger.is-light
+      =@cin_data_hash[:error]
+      %a{href:'https://www.paisabazaar.com/business-loan/what-is-cin-number/',:target => '_blank'}What is CIN Number?
+      
+  -if @cin_data_hash.present? && @cin_data_hash[:error] == false
+    .title Abbrivation
+    .block
+      This is 
+      %strong=@cin_data_hash[:listing_status]
+      belongs to  
+      %strong=@cin_data_hash[:industry_code]
+      industry.
+    .block
+      Established in 
+      %strong=@cin_data_hash[:state]
+      on 
+      %strong=@cin_data_hash[:year]
+      ='.'
+    .block
+      This is  
+      %strong=@cin_data_hash[:ownership]
+      Company with registration id 
+      %strong=@cin_data_hash[:registration]
+      ='.'
+
+.section.container
+  -if @histories.present?
+    .title History
+    %p= will_paginate @histories
+    = render :partial => 'history/index.html.haml'

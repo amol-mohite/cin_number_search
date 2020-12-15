@@ -1,0 +1,16 @@
+.table-container
+  %table.table.is-striped.is-narrow.is-hoverable.is-fullwidth
+    %tr 
+      %td.subtitle CIN Number
+      %td.subtitle Date
+    - @histories.each_with_index do |history, i|
+      %tr
+        %td=history.cin_number
+        %td=history.searched_at.try(:strftime,'%d/%m/%Y, %H:%M:%S ')
+        %td
+          = link_to(history_path(history), method: :delete, data:{confirm: "Are you sure?" }) do
+            %img{src: "https://image.flaticon.com/icons/png/128/1828/1828843.png",:style => "width: 22px; height: 22px;"}
+
+
+
+

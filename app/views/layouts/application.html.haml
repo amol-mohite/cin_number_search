@@ -1,0 +1,43 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %title KnowMyCIN
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body 
+    %section.hero.is-primary.is-bold
+      .hero-head
+        #navbarMenuHeroA.navbar-menu
+          .navbar
+            %h2.title
+              = link_to 'Home', root_path, class: "navbar-item"
+            -if user_signed_in?
+              %h1.title
+                = link_to "History", history_index_path, class:"navbar-item"
+              %h1.title
+                = link_to 'Edit profile', edit_user_registration_path, class:"navbar-item"
+              %h1
+                .title
+                  = link_to "Logout", destroy_user_session_path, method: :delete, class: 'navbar-item'
+                .subtitle.is-5 ( #{current_user.email}  )
+            -else  
+              .navbar
+                %h1.title
+                  = link_to "Sign up", new_user_registration_path, class:"navbar-item"
+              .navbar
+                %h1.title
+                  = link_to "Login", new_user_session_path, class:"navbar-item"
+    %section.hero.is-primary.is-bold.hero-footer
+      .container
+        .has-text-centered
+          %h1.title
+            = yield :page_title
+  .section.container{style:'width:100%;'}
+    .content-item
+      - if notice
+        %p.notification.is-success.is-light{:role => "alert"}= notice
+      - if alert
+        %p.notification.is_danger.is-light{:role => "alert"}= alert
+      = yield

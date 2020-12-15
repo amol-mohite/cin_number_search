@@ -1,0 +1,17 @@
+#clear_history.modal
+  .modal-background
+  .modal-card
+    = form_for '', url: history_clear_history_path do |f|  
+      %header.modal-card-head
+        %p.modal-card-title.title Clear Searched History
+        .close_modal.delete{"aria-label" => "close"}
+      %section.modal-card-body
+        .subtitle
+          Time range
+          = select_tag :time_period, options_for_select(['Last hour', 'Last 24 Hours','Last 7 days','Last 4 weeks','All time']), required: true,autofocus: true
+        .content
+          %br
+          %p This clears history for selected period from all signed-in devices. 
+      %footer.modal-card-foot
+        %button.button.is-success{type: 'submit'} Clear Data
+        .close_modal.button Cancel

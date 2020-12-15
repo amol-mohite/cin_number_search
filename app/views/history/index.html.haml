@@ -1,0 +1,15 @@
+.section.container      
+  .level-item
+    .title History
+    %br
+  -if @histories.present? 
+    .button.is-warning.is-light.clear_history{"aria-haspopup" => "true", "data-target" => "#clear_history","data-toggle" => "modal"} Clear History
+  -else
+    .level-item
+      %img{alt: "Image Processing", src: 'https://media1.giphy.com/media/3ohhwsjzpejaSWoTkI/200.gif', height: "350",width:"500"}
+%br  
+  -if @histories.present? 
+    =render partial: 'history/index.html.haml'
+    %p= will_paginate @histories
+-if @histories.present? 
+  = render partial: 'history/clear_history_modal'
