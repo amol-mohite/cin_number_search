@@ -13,3 +13,14 @@
     %p= will_paginate @histories
 -if @histories.present? 
   = render partial: 'history/clear_history_modal'
+
+:javascript
+
+  $(document).ready(function() {
+    $('.close_modal, .modal-background').click(function(){
+      $('.modal').removeClass('is-active');
+    });
+    $('.clear_history').click(function(){
+      $('.modal').addClass('is-active')
+    });
+  });
